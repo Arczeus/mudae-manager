@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudae Character Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            min-height: 100vh;
+            padding: 20px;
+            color: #e5e7eb;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #13131a;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border: 1px solid #1f1f2e;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #a78bfa;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        .subtitle {
+            color: #9ca3af;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 8px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            border: 2px solid #2a2a3a;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            resize: vertical;
+            background: #0a0a0f;
+            color: #e5e7eb;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+        button {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #6d28d9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+        }
+        button:disabled {
+            background: #4b5563;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .controls-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .control-box {
+            background: #13131a;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #1f1f2e;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            flex: 1;
+        }
+        .control-title {
+            color: #a78bfa;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .filter-group, .sort-group {
+            margin-bottom: 15px;
+        }
+        .filter-group:last-child, .sort-group:last-child {
+            margin-bottom: 0;
+        }
+        .filter-label {
+            color: #9ca3af;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        input[type="number"], input[type="text"], select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #2a2a3a;
+            border-radius: 5px;
+            background: #0a0a0f;
+            color: #e5e7eb;
+            font-size: 0.9em;
+        }
+        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #13131a;
+            border-radius: 15px;
+            border: 1px solid #1f1f2e;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+        .stat-item {
+            flex: 1;
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 0.85em;
+            color: #9ca3af;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #a78bfa;
+        }
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .character-card {
+            background: #13131a;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #2a2a3a;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+            border-color: #7c3aed;
+        }
+        .character-card.selected {
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+        .character-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #0a0a0f;
+        }
+        .character-info {
+            padding: 10px;
+        }
+        .character-name {
+            font-size: 0.75em;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 8px;
+            word-break: break-word;
+            text-align: center;
+        }
+        .character-notes {
+            font-size: 0.7em;
+            color: #a78bfa;
+            margin-bottom: 6px;
+            text-align: center;
+            min-height: 16px;
+        }
+        .character-stats {
+            display: flex;
+            justify-content: space-around;
+            gap: 5px;
+            font-size: 0.7em;
+        }
+        .stat-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stat-badge-label {
+            color: #9ca3af;
+            font-size: 0.85em;
+        }
+        .stat-badge-value {
+            color: #a78bfa;
+            font-weight: 700;
+        }
+        .command-section {
+            background: #13131a;
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid #1f1f2e;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+        .command-title {
+            color: #a78bfa;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .command-input-group {
+            margin-bottom: 15px;
+        }
+        .command-output {
+            background: #0a0a0f;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #d1d5db;
+            border: 2px solid #2a2a3a;
+            margin-bottom: 15px;
+            word-break: break-all;
+            min-height: 50px;
+        }
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+        .message.error {
+            background: #7f1d1d;
+            color: #fecaca;
+            border-color: #dc2626;
+        }
+        .message.success {
+            background: #064e3b;
+            color: #6ee7b7;
+            border-color: #10b981;
+        }
+        .group-section {
+            margin-top: 30px;
+        }
+        .group-card {
+            background: #1a1a24;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #2a2a3a;
+        }
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .group-title {
+            color: #a78bfa;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .group-count {
+            color: #9ca3af;
+            font-size: 0.9em;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+            font-size: 0.85em;
+            margin-top: 40px;
+            border-top: 1px solid #2a2a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Mudae Character Manager</h1>
+            <p class="subtitle">Parse your character list, filter, sort, and generate commands</p>
+            
+            <div class="input-section">
+                <label for="input">Paste your character list here:</label>
+                <textarea id="input" placeholder="Character Name | Notes · :keytype: (count) kakera ka - image_url"></textarea>
+                <button onclick="parseInput()">Parse Input</button>
+                <button onclick="clearAll()">Clear All</button>
+            </div>
+        </div>
+
+        <div id="message"></div>
+
+        <div class="controls-row">
+            <div class="control-box">
+                <div class="control-title">Sort Options</div>
+                <div class="sort-group">
+                    <button onclick="sortCharacters('name')">Sort by Name</button>
+                    <button onclick="sortCharacters('kakera')">Sort by Kakera</button>
+                    <button onclick="sortCharacters('keys')">Sort by Keys</button>
+                </div>
+            </div>
+
+            <div class="control-box">
+                <div class="control-title">Filter Options</div>
+                <div class="filter-group">
+                    <div class="filter-label">Min Kakera</div>
+                    <input type="number" id="minKakera" placeholder="e.g., 5000" oninput="applyFilters()">
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Max Kakera</div>
+                    <input type="number" id="maxKakera" placeholder="e.g., 10000" oninput="applyFilters()">
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Min Keys</div>
+                    <input type="number" id="minKeys" placeholder="e.g., 5" oninput="applyFilters()">
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Max Keys</div>
+                    <input type="number" id="maxKeys" placeholder="e.g., 20" oninput="applyFilters()">
+                </div>
+                <button onclick="clearFilters()">Clear Filters</button>
+            </div>
+
+            <div class="control-box">
+                <div class="control-title">Group Options</div>
+                <div class="filter-group">
+                    <div class="filter-label">Group By</div>
+                    <select id="groupBy" onchange="applyGrouping()">
+                        <option value="none">No Grouping</option>
+                        <option value="note">By Note</option>
+                        <option value="kakera">By Kakera Range</option>
+                        <option value="keys">By Key Count</option>
+                    </select>
+                </div>
+                <div class="filter-group" id="kakeraRangeInput" style="display: none;">
+                    <div class="filter-label">Kakera Range Step</div>
+                    <input type="number" id="kakeraRange" value="5000" placeholder="e.g., 5000">
+                </div>
+                <div class="filter-group" id="keysRangeInput" style="display: none;">
+                    <div class="filter-label">Keys Range Step</div>
+                    <input type="number" id="keysRange" value="5" placeholder="e.g., 5">
+                </div>
+                <button onclick="applyGrouping()">Apply Grouping</button>
+            </div>
+        </div>
+
+        <div id="stats"></div>
+
+        <div class="command-section">
+            <div class="command-title">Generate Command</div>
+            <div class="command-input-group">
+                <label for="commandName">Command Name (what to type before character names):</label>
+                <input type="text" id="commandName" value="$note" placeholder="e.g., $note">
+            </div>
+            <button onclick="generateCommand()">Generate Command</button>
+            <button onclick="selectAll()">Select All</button>
+            <button onclick="deselectAll()">Deselect All</button>
+            <div id="commandOutput"></div>
+        </div>
+
+        <div id="charactersContainer"></div>
+
+        <div class="footer">
+            Questions or feedback? Contact <strong style="color: #a78bfa;">arczeus</strong> on Discord
+        </div>
+    </div>
+
+    <script>
+        let allCharacters = [];
+        let filteredCharacters = [];
+        let selectedCharacters = new Set();
+
+        document.getElementById('groupBy').addEventListener('change', function() {
+            const val = this.value;
+            document.getElementById('kakeraRangeInput').style.display = val === 'kakera' ? 'block' : 'none';
+            document.getElementById('keysRangeInput').style.display = val === 'keys' ? 'block' : 'none';
+        });
+
+        function parseInput() {
+            const input = document.getElementById('input').value.trim();
+            if (!input) {
+                showMessage('Please paste your character list first!', 'error');
+                return;
+            }
+
+            allCharacters = [];
+            const lines = input.split('\n');
+
+            for (let line of lines) {
+                line = line.trim();
+                if (!line) continue;
+
+                const urlMatch = line.match(/https?:\/\/[^\s]+$/);
+                if (!urlMatch) continue;
+
+                const imageUrl = urlMatch[0];
+                let info = line.substring(0, urlMatch.index).trim();
+                info = info.replace(/\s*-\s*$/, '').trim();
+
+                let kakera = 0;
+                const kakeraMatch = info.match(/([\d,]+)\s*ka/);
+                if (kakeraMatch) {
+                    kakera = parseInt(kakeraMatch[1].replace(/,/g, ''));
+                    info = info.substring(0, kakeraMatch.index).trim();
+                }
+
+                let keys = 0;
+                const keysMatch = info.match(/\((\d+)\)/);
+                if (keysMatch) {
+                    keys = parseInt(keysMatch[1]);
+                }
+
+                info = info.replace(/\(\d+\)/g, '').trim();
+                info = info.replace(/:(?:bronze|silver|gold|chaos)key:/gi, '').trim();
+                info = info.replace(/\s*·\s*$/, '').trim();
+
+                let name = info;
+                let notes = '';
+
+                const parts = info.split('|');
+                if (parts.length > 0) {
+                    name = parts[0].trim();
+                    if (parts.length > 1) {
+                        notes = parts.slice(1).join(' | ').trim();
+                    }
+                }
+
+                allCharacters.push({
+                    name: name,
+                    notes: notes,
+                    kakera: kakera,
+                    keys: keys,
+                    image: imageUrl,
+                    selected: false
+                });
+            }
+
+            if (allCharacters.length === 0) {
+                showMessage('No valid characters found. Please check your input format.', 'error');
+                return;
+            }
+
+            filteredCharacters = allCharacters.slice();
+            selectedCharacters.clear();
+            displayCharacters();
+            updateStats();
+            showMessage('Successfully parsed ' + allCharacters.length + ' characters!', 'success');
+        }
+
+        function applyFilters() {
+            const minKakera = parseInt(document.getElementById('minKakera').value) || 0;
+            const maxKakera = parseInt(document.getElementById('maxKakera').value) || Infinity;
+            const minKeys = parseInt(document.getElementById('minKeys').value) || 0;
+            const maxKeys = parseInt(document.getElementById('maxKeys').value) || Infinity;
+
+            filteredCharacters = allCharacters.filter(c => {
+                return c.kakera >= minKakera && c.kakera <= maxKakera &&
+                       c.keys >= minKeys && c.keys <= maxKeys;
+            });
+
+            displayCharacters();
+            updateStats();
+        }
+
+        function clearFilters() {
+            document.getElementById('minKakera').value = '';
+            document.getElementById('maxKakera').value = '';
+            document.getElementById('minKeys').value = '';
+            document.getElementById('maxKeys').value = '';
+            filteredCharacters = allCharacters.slice();
+            displayCharacters();
+            updateStats();
+        }
+
+        function sortCharacters(method) {
+            if (method === 'name') {
+                filteredCharacters.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (method === 'kakera') {
+                filteredCharacters.sort((a, b) => b.kakera - a.kakera);
+            } else if (method === 'keys') {
+                filteredCharacters.sort((a, b) => b.keys - a.keys);
+            }
+            displayCharacters();
+            showMessage('Sorted by ' + method, 'success');
+        }
+
+        function applyGrouping() {
+            const groupBy = document.getElementById('groupBy').value;
+            displayCharacters(groupBy);
+        }
+
+        function displayCharacters(groupBy = 'none') {
+            const container = document.getElementById('charactersContainer');
+            container.innerHTML = '';
+
+            if (groupBy === 'none') {
+                const grid = document.createElement('div');
+                grid.className = 'characters-grid';
+                filteredCharacters.forEach((char, idx) => {
+                    grid.appendChild(createCharacterCard(char, idx));
+                });
+                container.appendChild(grid);
+            } else if (groupBy === 'note') {
+                const groups = {};
+                filteredCharacters.forEach(char => {
+                    const note = char.notes || '(No notes)';
+                    if (!groups[note]) groups[note] = [];
+                    groups[note].push(char);
+                });
+
+                for (let note in groups) {
+                    const groupCard = createGroupCard(note, groups[note]);
+                    container.appendChild(groupCard);
+                }
+            } else if (groupBy === 'kakera') {
+                const range = parseInt(document.getElementById('kakeraRange').value) || 5000;
+                const groups = {};
+                
+                filteredCharacters.forEach(char => {
+                    const bucket = Math.floor(char.kakera / range) * range;
+                    const label = bucket + '-' + (bucket + range - 1) + ' ka';
+                    if (!groups[label]) groups[label] = [];
+                    groups[label].push(char);
+                });
+
+                const sortedKeys = Object.keys(groups).sort((a, b) => {
+                    const aNum = parseInt(a.split('-')[0]);
+                    const bNum = parseInt(b.split('-')[0]);
+                    return bNum - aNum;
+                });
+
+                sortedKeys.forEach(label => {
+                    const groupCard = createGroupCard(label, groups[label]);
+                    container.appendChild(groupCard);
+                });
+            } else if (groupBy === 'keys') {
+                const range = parseInt(document.getElementById('keysRange').value) || 5;
+                const groups = {};
+                
+                filteredCharacters.forEach(char => {
+                    const bucket = Math.floor(char.keys / range) * range;
+                    const label = bucket + '-' + (bucket + range - 1) + ' keys';
+                    if (!groups[label]) groups[label] = [];
+                    groups[label].push(char);
+                });
+
+                const sortedKeys = Object.keys(groups).sort((a, b) => {
+                    const aNum = parseInt(a.split('-')[0]);
+                    const bNum = parseInt(b.split('-')[0]);
+                    return bNum - aNum;
+                });
+
+                sortedKeys.forEach(label => {
+                    const groupCard = createGroupCard(label, groups[label]);
+                    container.appendChild(groupCard);
+                });
+            }
+        }
+
+        function createGroupCard(title, characters) {
+            const groupCard = document.createElement('div');
+            groupCard.className = 'group-card';
+
+            const header = document.createElement('div');
+            header.className = 'group-header';
+            header.innerHTML = '<div class="group-title">' + title + '</div><div class="group-count">' + characters.length + ' character' + (characters.length !== 1 ? 's' : '') + '</div>';
+
+            const grid = document.createElement('div');
+            grid.className = 'characters-grid';
+            characters.forEach(char => {
+                const idx = allCharacters.indexOf(char);
+                grid.appendChild(createCharacterCard(char, idx));
+            });
+
+            groupCard.appendChild(header);
+            groupCard.appendChild(grid);
+            return groupCard;
+        }
+
+        function createCharacterCard(char, idx) {
+            const card = document.createElement('div');
+            card.className = 'character-card';
+            if (selectedCharacters.has(idx)) {
+                card.classList.add('selected');
+            }
+
+            card.onclick = function() {
+                toggleSelection(idx);
+            };
+
+            const img = document.createElement('img');
+            img.className = 'character-image';
+            img.src = char.image;
+            img.alt = char.name;
+            img.onerror = function() {
+                this.style.background = '#2a2a3a';
+            };
+
+            const info = document.createElement('div');
+            info.className = 'character-info';
+
+            const name = document.createElement('div');
+            name.className = 'character-name';
+            name.textContent = char.name;
+
+            const notes = document.createElement('div');
+            notes.className = 'character-notes';
+            notes.textContent = char.notes;
+
+            const stats = document.createElement('div');
+            stats.className = 'character-stats';
+            stats.innerHTML = '<div class="stat-badge"><div class="stat-badge-label">Ka</div><div class="stat-badge-value">' + char.kakera.toLocaleString() + '</div></div><div class="stat-badge"><div class="stat-badge-label">Keys</div><div class="stat-badge-value">' + char.keys + '</div></div>';
+
+            info.appendChild(name);
+            info.appendChild(notes);
+            info.appendChild(stats);
+            card.appendChild(img);
+            card.appendChild(info);
+
+            return card;
+        }
+
+        function toggleSelection(idx) {
+            if (selectedCharacters.has(idx)) {
+                selectedCharacters.delete(idx);
+            } else {
+                selectedCharacters.add(idx);
+            }
+            const groupBy = document.getElementById('groupBy').value;
+            displayCharacters(groupBy);
+            updateStats();
+        }
+
+        function selectAll() {
+            filteredCharacters.forEach(char => {
+                const idx = allCharacters.indexOf(char);
+                selectedCharacters.add(idx);
+            });
+            const groupBy = document.getElementById('groupBy').value;
+            displayCharacters(groupBy);
+            updateStats();
+        }
+
+        function deselectAll() {
+            selectedCharacters.clear();
+            const groupBy = document.getElementById('groupBy').value;
+            displayCharacters(groupBy);
+            updateStats();
+        }
+
+        function updateStats() {
+            const stats = document.getElementById('stats');
+            stats.innerHTML = '<div class="stat-item"><div class="stat-label">Total Characters</div><div class="stat-value">' + allCharacters.length + '</div></div><div class="stat-item"><div class="stat-label">Filtered Characters</div><div class="stat-value">' + filteredCharacters.length + '</div></div><div class="stat-item"><div class="stat-label">Selected Characters</div><div class="stat-value">' + selectedCharacters.size + '</div></div>';
+        }
+
+        function generateCommand() {
+            const commandName = document.getElementById('commandName').value.trim() || '$note';
+            const output = document.getElementById('commandOutput');
+
+            if (selectedCharacters.size === 0) {
+                output.innerHTML = '<div class="command-output">No characters selected. Select characters to generate a command.</div>';
+                return;
+            }
+
+            const selectedNames = Array.from(selectedCharacters).map(idx => allCharacters[idx].name);
+            const command = commandName + ' ' + selectedNames.join('$') + '$';
+
+            output.innerHTML = '<div class="command-output">' + command + '</div><button onclick="copyCommand(\'' + command.replace(/'/g, "\\'") + '\')">📋 Copy Command</button>';
+        }
+
+        function copyCommand(cmd) {
+            navigator.clipboard.writeText(cmd).then(() => {
+                showMessage('Command copied to clipboard!', 'success');
+            });
+        }
+
+        function clearAll() {
+            if (allCharacters.length > 0) {
+                if (!confirm('Are you sure you want to clear all data?')) return;
+            }
+            allCharacters = [];
+            filteredCharacters = [];
+            selectedCharacters.clear();
+            document.getElementById('input').value = '';
+            document.getElementById('charactersContainer').innerHTML = '';
+            document.getElementById('commandOutput').innerHTML = '';
+            document.getElementById('stats').innerHTML = '';
+            document.getElementById('message').innerHTML = '';
+            clearFilters();
+        }
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.className = 'message ' + type;
+            msg.textContent = text;
+            setTimeout(() => {
+                msg.innerHTML = '';
+                msg.className = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
