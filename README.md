@@ -10,10 +10,11 @@ Works entirely in your browser — no setup or dependencies required.
 - **Parse Character Lists** — Import characters with notes, kakera values, and key counts.  
 - **Visual Grid Display** — See all your characters with images and stats.
 - **Filtering** — Filter by kakera range or key count.  
-- **Sorting** — Sort instantly by name, kakera, or keys.  
+- **Sorting** — Sort by name, kakera, or keys.  
 - **Grouping** — Group characters by notes, kakera ranges, or key counts.  
-- **Command Generation** — Create ready-to-use Mudae commands for selected characters.  
 - **Character Selection** — Select/deselect characters.
+- **Command Generation** — Create Mudae commands for selected characters.
+
 
 ---
 
