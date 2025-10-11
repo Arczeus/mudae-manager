@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a0a0f;
@@ -17,10 +19,12 @@
             padding: 20px;
             color: #e5e7eb;
         }
+
         .container {
             max-width: 1600px;
             margin: 0 auto;
         }
+
         .header {
             background: #13131a;
             border-radius: 15px;
@@ -29,25 +33,30 @@
             border: 1px solid #1f1f2e;
             margin-bottom: 20px;
         }
+
         h1 {
             color: #a78bfa;
             margin-bottom: 10px;
             font-size: 2em;
         }
+
         .subtitle {
             color: #9ca3af;
             margin-bottom: 15px;
             font-size: 0.9em;
         }
+
         .input-section {
             margin-bottom: 20px;
         }
+
         label {
             display: block;
             font-weight: 600;
             color: #e5e7eb;
             margin-bottom: 8px;
         }
+
         textarea {
             width: 100%;
             min-height: 150px;
@@ -60,10 +69,12 @@
             background: #0a0a0f;
             color: #e5e7eb;
         }
+
         textarea:focus {
             outline: none;
             border-color: #7c3aed;
         }
+
         button {
             background: #7c3aed;
             color: white;
@@ -78,21 +89,25 @@
             margin-top: 10px;
             padding: 10px;
         }
+
         button:hover {
             background: #6d28d9;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
         }
+
         button:disabled {
             background: #4b5563;
             cursor: not-allowed;
             transform: none;
         }
+
         .controls-row {
             display: flex;
             gap: 20px;
             margin-bottom: 20px;
         }
+
         .control-box {
             background: #13131a;
             border-radius: 15px;
@@ -101,24 +116,33 @@
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             flex: 1;
         }
+
         .control-title {
             color: #a78bfa;
             font-weight: 600;
             margin-bottom: 15px;
             font-size: 1.1em;
         }
-        .filter-group, .sort-group {
+
+        .filter-group,
+        .sort-group {
             margin-bottom: 15px;
         }
-        .filter-group:last-child, .sort-group:last-child {
+
+        .filter-group:last-child,
+        .sort-group:last-child {
             margin-bottom: 0;
         }
+
         .filter-label {
             color: #9ca3af;
             font-size: 0.9em;
             margin-bottom: 5px;
         }
-        input[type="number"], input[type="text"], select {
+
+        input[type="number"],
+        input[type="text"],
+        select {
             width: 100%;
             padding: 8px 12px;
             border: 2px solid #2a2a3a;
@@ -127,10 +151,14 @@
             color: #e5e7eb;
             font-size: 0.9em;
         }
-        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
             outline: none;
             border-color: #7c3aed;
         }
+
         .stats {
             display: flex;
             gap: 20px;
@@ -141,26 +169,31 @@
             border: 1px solid #1f1f2e;
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
         }
+
         .stat-item {
             flex: 1;
             text-align: center;
         }
+
         .stat-label {
             font-size: 0.85em;
             color: #9ca3af;
             margin-bottom: 5px;
         }
+
         .stat-value {
             font-size: 1.8em;
             font-weight: 700;
             color: #a78bfa;
         }
+
         .characters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
+
         .character-card {
             background: #13131a;
             border-radius: 10px;
@@ -169,24 +202,29 @@
             transition: all 0.3s;
             cursor: pointer;
         }
+
         .character-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
             border-color: #7c3aed;
         }
+
         .character-card.selected {
             border-color: #10b981;
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
         }
+
         .character-image {
             width: 100%;
             height: 180px;
             object-fit: cover;
             background: #0a0a0f;
         }
+
         .character-info {
             padding: 10px;
         }
+
         .character-name {
             font-size: 0.75em;
             font-weight: 600;
@@ -195,6 +233,7 @@
             word-break: break-word;
             text-align: center;
         }
+
         .character-notes {
             font-size: 0.7em;
             color: #a78bfa;
@@ -202,25 +241,30 @@
             text-align: center;
             min-height: 16px;
         }
+
         .character-stats {
             display: flex;
             justify-content: space-around;
             gap: 5px;
             font-size: 0.7em;
         }
+
         .stat-badge {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .stat-badge-label {
             color: #9ca3af;
             font-size: 0.85em;
         }
+
         .stat-badge-value {
             color: #a78bfa;
             font-weight: 700;
         }
+
         .command-section {
             background: #13131a;
             border-radius: 15px;
@@ -229,15 +273,18 @@
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
         }
+
         .command-title {
             color: #a78bfa;
             font-size: 1.3em;
             font-weight: 600;
             margin-bottom: 15px;
         }
+
         .command-input-group {
             margin-bottom: 15px;
         }
+
         .command-output {
             background: #0a0a0f;
             padding: 15px;
@@ -250,25 +297,30 @@
             word-break: break-all;
             min-height: 50px;
         }
+
         .message {
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 20px;
             border-left: 4px solid;
         }
+
         .message.error {
             background: #7f1d1d;
             color: #fecaca;
             border-color: #dc2626;
         }
+
         .message.success {
             background: #064e3b;
             color: #6ee7b7;
             border-color: #10b981;
         }
+
         .group-section {
             margin-top: 30px;
         }
+
         .group-card {
             background: #1a1a24;
             border-radius: 10px;
@@ -276,6 +328,7 @@
             margin-bottom: 20px;
             border: 2px solid #2a2a3a;
         }
+
         .group-header {
             display: flex;
             justify-content: space-between;
@@ -283,21 +336,25 @@
             margin-bottom: 15px;
             gap: 10px;
         }
+
         .group-title {
             color: #a78bfa;
             font-size: 1.2em;
             font-weight: 600;
             flex: 1;
         }
+
         .group-count {
             color: #9ca3af;
             font-size: 0.9em;
         }
+
         .group-btn {
             padding: 6px 12px;
             font-size: 0.85em;
             margin: 0;
         }
+
         .footer {
             text-align: center;
             padding: 20px;
@@ -308,15 +365,17 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>Mudae Character Manager</h1>
             <p class="subtitle">Parse your character list, filter, sort, and generate commands</p>
-            
+
             <div class="input-section">
                 <label for="input">Paste your character list here:</label>
-                <textarea id="input" placeholder="Character Name | Notes · :keytype: (count) kakera ka - image_url"></textarea>
+                <textarea id="input"
+                    placeholder="Character Name | Notes · :keytype: (count) kakera ka - image_url"></textarea>
                 <button onclick="parseInput()">Parse Input</button>
                 <button onclick="clearAll()">Clear All</button>
             </div>
@@ -404,7 +463,38 @@
         let filteredCharacters = [];
         let selectedCharacters = new Set();
 
-        document.getElementById('groupBy').addEventListener('change', function() {
+        function loadFromStorage() {
+            const saved = localStorage.getItem('mudaeCharacters');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    allCharacters = data.characters || [];
+                    selectedCharacters = new Set(data.selected || []);
+                    filteredCharacters = allCharacters.slice();
+                    displayCharacters();
+                    updateStats();
+                    showMessage('Loaded ' + allCharacters.length + ' characters from storage!', 'success');
+                } catch (e) {
+                    console.error('Failed to load from storage:', e);
+                }
+            }
+        }
+
+        function saveToStorage() {
+            try {
+                const data = {
+                    characters: allCharacters,
+                    selected: Array.from(selectedCharacters)
+                };
+                localStorage.setItem('mudaeCharacters', JSON.stringify(data));
+            } catch (e) {
+                console.error('Failed to save to storage:', e);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadFromStorage);
+
+        document.getElementById('groupBy').addEventListener('change', function () {
             const val = this.value;
             document.getElementById('kakeraRangeInput').style.display = val === 'kakera' ? 'block' : 'none';
             document.getElementById('keysRangeInput').style.display = val === 'keys' ? 'block' : 'none';
@@ -479,6 +569,8 @@
             displayCharacters();
             updateStats();
             showMessage('Successfully parsed ' + allCharacters.length + ' characters!', 'success');
+            saveToStorage();
+
         }
 
         function applyFilters() {
@@ -489,7 +581,7 @@
 
             filteredCharacters = allCharacters.filter(c => {
                 return c.kakera >= minKakera && c.kakera <= maxKakera &&
-                       c.keys >= minKeys && c.keys <= maxKeys;
+                    c.keys >= minKeys && c.keys <= maxKeys;
             });
 
             displayCharacters();
@@ -549,7 +641,7 @@
             } else if (groupBy === 'kakera') {
                 const range = parseInt(document.getElementById('kakeraRange').value) || 5000;
                 const groups = {};
-                
+
                 filteredCharacters.forEach(char => {
                     const bucket = Math.floor(char.kakera / range) * range;
                     const label = bucket + '-' + (bucket + range - 1) + ' ka';
@@ -570,7 +662,7 @@
             } else if (groupBy === 'keys') {
                 const range = parseInt(document.getElementById('keysRange').value) || 5;
                 const groups = {};
-                
+
                 filteredCharacters.forEach(char => {
                     const bucket = Math.floor(char.keys / range) * range;
                     const label = bucket + '-' + (bucket + range - 1) + ' keys';
@@ -597,19 +689,19 @@
 
             const header = document.createElement('div');
             header.className = 'group-header';
-            
+
             const titleDiv = document.createElement('div');
             titleDiv.className = 'group-title';
             titleDiv.textContent = title;
-            
+
             const countDiv = document.createElement('div');
             countDiv.className = 'group-count';
             countDiv.textContent = characters.length + ' character' + (characters.length !== 1 ? 's' : '');
-            
+
             const selectBtn = document.createElement('button');
             selectBtn.className = 'group-btn';
             selectBtn.textContent = 'Select All';
-            selectBtn.onclick = function(e) {
+            selectBtn.onclick = function (e) {
                 e.stopPropagation();
                 characters.forEach(char => {
                     const idx = allCharacters.indexOf(char);
@@ -619,11 +711,11 @@
                 displayCharacters(groupBy);
                 updateStats();
             };
-            
+
             const deselectBtn = document.createElement('button');
             deselectBtn.className = 'group-btn';
             deselectBtn.textContent = 'Deselect All';
-            deselectBtn.onclick = function(e) {
+            deselectBtn.onclick = function (e) {
                 e.stopPropagation();
                 characters.forEach(char => {
                     const idx = allCharacters.indexOf(char);
@@ -658,7 +750,7 @@
                 card.classList.add('selected');
             }
 
-            card.onclick = function() {
+            card.onclick = function () {
                 toggleSelection(idx);
             };
 
@@ -666,7 +758,7 @@
             img.className = 'character-image';
             img.src = char.image;
             img.alt = char.name;
-            img.onerror = function() {
+            img.onerror = function () {
                 this.style.background = '#2a2a3a';
             };
 
@@ -703,6 +795,8 @@
             const groupBy = document.getElementById('groupBy').value;
             displayCharacters(groupBy);
             updateStats();
+            saveToStorage();
+
         }
 
         function selectAll() {
@@ -713,6 +807,8 @@
             const groupBy = document.getElementById('groupBy').value;
             displayCharacters(groupBy);
             updateStats();
+            saveToStorage();
+
         }
 
         function deselectAll() {
@@ -720,6 +816,8 @@
             const groupBy = document.getElementById('groupBy').value;
             displayCharacters(groupBy);
             updateStats();
+            saveToStorage();
+
         }
 
         function updateStats() {
@@ -761,6 +859,7 @@
             document.getElementById('stats').innerHTML = '';
             document.getElementById('message').innerHTML = '';
             clearFilters();
+            localStorage.removeItem('mudaeCharacters');
         }
 
         function showMessage(text, type) {
@@ -774,4 +873,5 @@
         }
     </script>
 </body>
+
 </html>
