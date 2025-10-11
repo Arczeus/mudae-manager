@@ -76,6 +76,7 @@
             transition: all 0.3s;
             margin-right: 10px;
             margin-top: 10px;
+            padding: 10px;
         }
         button:hover {
             background: #6d28d9;
@@ -280,15 +281,22 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            gap: 10px;
         }
         .group-title {
             color: #a78bfa;
             font-size: 1.2em;
             font-weight: 600;
+            flex: 1;
         }
         .group-count {
             color: #9ca3af;
             font-size: 0.9em;
+        }
+        .group-btn {
+            padding: 6px 12px;
+            font-size: 0.85em;
+            margin: 0;
         }
         .footer {
             text-align: center;
@@ -589,7 +597,47 @@
 
             const header = document.createElement('div');
             header.className = 'group-header';
-            header.innerHTML = '<div class="group-title">' + title + '</div><div class="group-count">' + characters.length + ' character' + (characters.length !== 1 ? 's' : '') + '</div>';
+            
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'group-title';
+            titleDiv.textContent = title;
+            
+            const countDiv = document.createElement('div');
+            countDiv.className = 'group-count';
+            countDiv.textContent = characters.length + ' character' + (characters.length !== 1 ? 's' : '');
+            
+            const selectBtn = document.createElement('button');
+            selectBtn.className = 'group-btn';
+            selectBtn.textContent = 'Select All';
+            selectBtn.onclick = function(e) {
+                e.stopPropagation();
+                characters.forEach(char => {
+                    const idx = allCharacters.indexOf(char);
+                    selectedCharacters.add(idx);
+                });
+                const groupBy = document.getElementById('groupBy').value;
+                displayCharacters(groupBy);
+                updateStats();
+            };
+            
+            const deselectBtn = document.createElement('button');
+            deselectBtn.className = 'group-btn';
+            deselectBtn.textContent = 'Deselect All';
+            deselectBtn.onclick = function(e) {
+                e.stopPropagation();
+                characters.forEach(char => {
+                    const idx = allCharacters.indexOf(char);
+                    selectedCharacters.delete(idx);
+                });
+                const groupBy = document.getElementById('groupBy').value;
+                displayCharacters(groupBy);
+                updateStats();
+            };
+
+            header.appendChild(titleDiv);
+            header.appendChild(countDiv);
+            header.appendChild(selectBtn);
+            header.appendChild(deselectBtn);
 
             const grid = document.createElement('div');
             grid.className = 'characters-grid';
