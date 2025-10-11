@@ -17,7 +17,7 @@ Works entirely in your browser — no setup or dependencies required.
 
 ## Usage
 
-1. Open `mudea-manager.html` in your browser.  
+1. Open `mudae-manager.html` in your browser.  
 2. Paste your character list from mudae ($mmi-yks) and any other custom filtering suffix you need into the input box
 3. Parse input and use sorting/filtering/grouping to your heart's content.
 4. Select/deselect characters
