@@ -837,7 +837,7 @@
             const selectedNames = Array.from(selectedCharacters).map(idx => allCharacters[idx].name);
             const command = commandName + ' ' + selectedNames.join('$') + '$';
 
-            output.innerHTML = '<div class="command-output">' + command + '</div><button onclick="copyCommand(\'' + command.replace(/'/g, "\\'") + '\')">📋 Copy Command</button>';
+            output.innerHTML = '<div class="command-output">' + command + '</div><button onclick="copyCommand(\'' + command.replace(/'/g, "\\'") + '\')">Copy Command</button>';
         }
 
         function copyCommand(cmd) {
