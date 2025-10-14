@@ -22,3 +22,6 @@ Works entirely in your browser — no setup or dependencies required.
 3. Parse input and use sorting/filtering/grouping to your heart's content.
 4. Select/deselect characters
 5. Generate commands with your chosen prefix
+
+## To do
+1. Group by series (Duh)
