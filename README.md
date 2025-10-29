@@ -4,6 +4,8 @@
 
 https://github.com/Arczeus/mudae-noter can do everything this tool does (and better) 
 
+## Intro
+
 A web-based tool for managing and organizing your Mudae characters with filtering, sorting, and command generation features.  
 Works entirely in your browser — no setup or dependencies required.
 
